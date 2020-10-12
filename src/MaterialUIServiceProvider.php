@@ -5,13 +5,11 @@ namespace Zecsn\MaterialUI;
 use Encore\Admin\Admin;
 use Illuminate\Support\ServiceProvider;
 
-class MaterialUIServiceProvider extends ServiceProvider
-{
+class MaterialUIServiceProvider extends ServiceProvider {
     /**
      * {@inheritdoc}
      */
-    public function boot(MaterialUI $extension)
-    {
+    public function boot(MaterialUI $extension) {
         if (!MaterialUI::boot()) {
             return;
         }
@@ -27,28 +25,22 @@ class MaterialUIServiceProvider extends ServiceProvider
 
         Admin::booting(function () use ($vendor_path) {
             $skin = str_replace('skin', 'skin-md', config('admin.skin'));
-            $html = <<<HTML_MATERIAL
-<script>
-    $.material.init()
-</script>
-HTML_MATERIAL;
 
-            Admin::html($html);
             array_push(
                 Admin::$baseCss,
-                $vendor_path.'MaterialAdminLTE/dist/css/bootstrap-material-design.min.css',
-                $vendor_path.'MaterialAdminLTE/dist/css/ripples.min.css',
-                $vendor_path.'MaterialAdminLTE/dist/css/MaterialAdminLTE.min.css',
-                $vendor_path.'MaterialAdminLTE/dist/css/skins/'.$skin.'.min.css',
-                $vendor_path.'MaterialAdminLTE/dist/css/custom.css'
+                $vendor_path . 'MaterialAdminLTE/dist/css/bootstrap-material-design.min.css',
+                $vendor_path . 'MaterialAdminLTE/dist/css/ripples.min.css',
+                $vendor_path . 'MaterialAdminLTE/dist/css/MaterialAdminLTE.min.css',
+                $vendor_path . 'MaterialAdminLTE/dist/css/skins/' . $skin . '.min.css',
+                $vendor_path . 'MaterialAdminLTE/dist/css/custom.css'
             );
             array_push(
                 Admin::$baseJs,
-                //$vendor_path.'MaterialAdminLTE/dist/js/material.min.js',
-                //$vendor_path.'MaterialAdminLTE/dist/js/ripples.min.js'
+                $vendor_path . 'MaterialAdminLTE/dist/js/material.min.js',
+                $vendor_path . 'MaterialAdminLTE/dist/js/ripples.min.js'
             );
 
-            //Admin::script('$.material.init()');
+            Admin::script('$.material.init();');
         });
     }
 }
